@@ -1,10 +1,14 @@
 package com.example.shoplist.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.shoplist.data.ShopListRepoImpl.shopList
 import com.example.shoplist.domain.ShopItem
 import com.example.shoplist.domain.ShopListRepo
 
 object ShopListRepoImpl:ShopListRepo {
+
+    private val shopListLD = MutableLiveData<List<ShopItem>>()
     private val shopList = mutableListOf<ShopItem>()
 
     //Переменная которая хранит Айдишку
@@ -25,10 +29,12 @@ object ShopListRepoImpl:ShopListRepo {
     }
         //Добавляем новый Айди
         shopList.add(shopItem)
+        updateList()
     }
 
     override fun deleteShopItem(shopItem: ShopItem) {
         shopList.remove(shopItem)
+        updateList()
     }
 
     override fun editShopItem(shopItem: ShopItem) {
@@ -46,7 +52,11 @@ object ShopListRepoImpl:ShopListRepo {
       }?: throw RuntimeException("Element with id $shopItemId not found")
     }
 
-    override fun getShopList(): List<ShopItem> {
-        return shopList.toList()
+    override fun getShopList(): LiveData<List<ShopItem>> {
+        return shopListLD
+    }
+    //Обновление Списка
+    private fun updateList(){
+        shopListLD.value = shopList.toList()
     }
 }
