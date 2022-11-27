@@ -10,6 +10,13 @@ object ShopListRepoImpl:ShopListRepo {
     //Переменная которая хранит Айдишку
     private var autoIncrementId = 0
 
+    init {
+        for(i in 0 until 10){
+            val item = ShopItem("Name $i",i,true)
+            addShopItem(item)
+        }
+    }
+
     override fun addShopItem(shopItem: ShopItem) {
         //Если айди не определен то присваиваем ему айдишку иначе добавляем в коллекцию
         if (shopItem.id == ShopItem.UNDEFIEND_ID){
