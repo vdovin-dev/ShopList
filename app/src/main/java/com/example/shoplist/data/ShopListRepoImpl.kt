@@ -10,7 +10,8 @@ import kotlin.random.Random
 object ShopListRepoImpl:ShopListRepo {
 
     private val shopListLD = MutableLiveData<List<ShopItem>>()
-    private val shopList = mutableListOf<ShopItem>()
+    //Сщздается сортированный списсок, предаем компаратор для сравнивания элементов списка по айди
+    private val shopList = sortedSetOf<ShopItem>({o1,o2 ->o1.id.compareTo(o2.id )})
 
     //Переменная которая хранит Айдишку
     private var autoIncrementId = 0

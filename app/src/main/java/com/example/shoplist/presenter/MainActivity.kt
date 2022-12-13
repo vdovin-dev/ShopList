@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //Получаем новый список
         llShopList = findViewById(R.id.ll_shop_list)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.shopList.observe(this){
@@ -27,6 +28,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun showList(list:List<ShopItem>){
+        //Очищаем линер лайоут
+        llShopList.removeAllViews()
+        //Создаются новые элементы
         for (shopItem in list){
             val layoutId = if(shopItem.enabled){
                 R.layout.item_shop_enabled
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             val tvCount = view.findViewById<TextView>(R.id.tv_count)
             tvName.text = shopItem.name
             tvCount.text = shopItem.count.toString()
-            view.setOnClickListener{
+            view.setOnLongClickListener{
                 viewModel.changeEnableState(shopItem)
                 true
             }
