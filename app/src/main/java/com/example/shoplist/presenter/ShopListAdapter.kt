@@ -16,7 +16,7 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
     }
    //Метод возвращает кол-во элементов в коллекции
     override fun getItemCount(): Int {
